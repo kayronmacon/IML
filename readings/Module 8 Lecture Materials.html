@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Module 8 — Introduction to Machine Learning Concepts</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5f6b7a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f4f6f8;
+    --side-bg: #f8fafc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --fg: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --border: #1f2937;
+      --code-bg: #161a22;
+      --side-bg: #11151c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+  body {
+    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+  nav.toc {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--side-bg);
+    border-right: 1px solid var(--border);
+    padding: 24px 18px;
+    font-size: 14px;
+  }
+  nav.toc h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: item; }
+  nav.toc ol li { counter-increment: item; margin: 4px 0; }
+  nav.toc ol li::before {
+    content: counter(item) ".";
+    color: var(--muted);
+    display: inline-block;
+    width: 24px;
+    text-align: right;
+    margin-right: 6px;
+  }
+  nav.toc a { color: var(--fg); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+  main {
+    padding: 48px 56px 96px;
+    max-width: 880px;
+  }
+  header.doc-header {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+  }
+  header.doc-header .eyebrow {
+    color: var(--muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  header.doc-header h1 { font-size: 32px; margin: 6px 0 4px; line-height: 1.2; }
+  header.doc-header .subtitle { color: var(--muted); font-size: 18px; }
+  section { margin: 40px 0; scroll-margin-top: 16px; }
+  section h2 {
+    font-size: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+  }
+  section h3 { font-size: 18px; margin: 24px 0 6px; }
+  p { margin: 8px 0; }
+  ul { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  pre, code { font-family: "JetBrains Mono", Consolas, Menlo, monospace; }
+  pre {
+    background: var(--code-bg);
+    padding: 14px 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 14px;
+    border: 1px solid var(--border);
+  }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; font-size: 13.5px; }
+  pre code { background: none; padding: 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+  th { background: var(--code-bg); }
+  .callout {
+    background: var(--code-bg);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 4px;
+  }
+  .callout .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  a { color: var(--accent); }
+  details { margin: 12px 0; }
+  details summary { cursor: pointer; font-weight: 600; }
+  @media (max-width: 860px) {
+    body { grid-template-columns: 1fr; }
+    nav.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    main { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <h2>Module 8</h2>
+  <ol>
+    <li><a href="#s1">What is Machine Learning?</a></li>
+    <li><a href="#s2">Why Machine Learning Matters</a></li>
+    <li><a href="#s3">ML in Cybersecurity</a></li>
+    <li><a href="#s4">Key Concepts</a></li>
+    <li><a href="#s5">Supervised Learning</a></li>
+    <li><a href="#s6">Unsupervised Learning</a></li>
+    <li><a href="#s7">The ML Workflow</a></li>
+    <li><a href="#s8">Scikit-Learn</a></li>
+    <li><a href="#s9">Interpreting Results</a></li>
+    <li><a href="#s10">Limitations</a></li>
+    <li><a href="#s11">Preparing for Course 02</a></li>
+    <li><a href="#takeaways">Key Takeaways</a></li>
+    <li><a href="#resources">Additional Resources</a></li>
+  </ol>
+</nav>
+
+<main>
+  <header class="doc-header">
+    <div class="eyebrow">Module 8 Lecture Materials</div>
+    <h1>Introduction to Machine Learning Concepts</h1>
+    <div class="subtitle">Optional Module</div>
+  </header>
+
+  <section id="s1">
+    <h2>1. What is Machine Learning?</h2>
+    <p>Machine Learning (ML) is a field of artificial intelligence that focuses on building systems that learn patterns from data and use those patterns to make predictions or decisions without being explicitly programmed.</p>
+    <p>Traditional programming follows this structure:</p>
+    <pre>Input Data + Rules  →  Output</pre>
+    <p>Machine learning reverses this process:</p>
+    <pre>Input Data + Output Labels  →  Model learns the Rules</pre>
+    <p>The model then applies these learned rules to new data.</p>
+
+    <h3>Example</h3>
+    <p><strong>Traditional Programming:</strong></p>
+    <pre><code>if email contains "free money":
+    spam = True</code></pre>
+    <p><strong>Machine Learning:</strong></p>
+    <p>A model analyzes thousands of emails labeled spam or not spam and learns patterns automatically. The model then predicts whether a new email is spam.</p>
+  </section>
+
+  <section id="s2">
+    <h2>2. Why Machine Learning Matters</h2>
+    <p>Machine learning is widely used across many industries because it enables systems to identify patterns and make predictions from large datasets.</p>
+    <h3>Healthcare</h3>
+    <ul><li>Disease prediction</li><li>Medical image analysis</li></ul>
+    <h3>Finance</h3>
+    <ul><li>Fraud detection</li><li>Risk modeling</li></ul>
+    <h3>Retail</h3>
+    <ul><li>Product recommendations</li><li>Customer behavior analysis</li></ul>
+    <h3>Cybersecurity</h3>
+    <ul><li>Intrusion detection</li><li>Malware classification</li><li>Login anomaly detection</li></ul>
+    <p>Machine learning allows organizations to detect patterns that humans cannot easily identify manually.</p>
+  </section>
+
+  <section id="s3">
+    <h2>3. Machine Learning in Cybersecurity</h2>
+    <p>Machine learning plays a growing role in modern cybersecurity systems. Security teams collect large amounts of data from:</p>
+    <ul>
+      <li>Network logs</li>
+      <li>Authentication records</li>
+      <li>System activity</li>
+      <li>User behavior</li>
+      <li>Firewall alerts</li>
+    </ul>
+    <p>Machine learning models analyze these datasets to detect suspicious activity.</p>
+
+    <h3>Example Applications</h3>
+    <ul>
+      <li><strong>Spam Detection</strong> — Classifying emails as spam or legitimate.</li>
+      <li><strong>Intrusion Detection</strong> — Detecting unusual network traffic that may indicate an attack.</li>
+      <li><strong>User Behavior Analytics</strong> — Detecting abnormal login behavior that could indicate compromised accounts.</li>
+      <li><strong>Threat Classification</strong> — Classifying malicious software or network activity.</li>
+    </ul>
+    <p>Machine learning helps security analysts automate detection and prioritize threats.</p>
+  </section>
+
+  <section id="s4">
+    <h2>4. Key Concepts in Machine Learning</h2>
+
+    <h3>Dataset</h3>
+    <p>A dataset is a collection of data used to train and evaluate machine learning models. Datasets typically contain rows and columns.</p>
+    <table>
+      <thead><tr><th>User</th><th>Login Attempts</th><th>Time</th><th>Location</th><th>Label</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>3</td><td>10:00</td><td>US</td><td>Normal</td></tr>
+        <tr><td>B</td><td>25</td><td>02:30</td><td>Unknown</td><td>Suspicious</td></tr>
+      </tbody>
+    </table>
+    <p>Each row represents an observation.</p>
+
+    <h3>Features</h3>
+    <p>Features are the input variables used by the model to make predictions. Examples in cybersecurity:</p>
+    <ul>
+      <li>Number of login attempts</li>
+      <li>Time of login</li>
+      <li>IP address location</li>
+      <li>Device type</li>
+      <li>Data transfer volume</li>
+    </ul>
+
+    <h3>Labels</h3>
+    <p>Labels represent the correct answer or outcome the model is trying to predict.</p>
+    <ul>
+      <li>Spam or Not Spam</li>
+      <li>Malicious or Benign</li>
+      <li>Fraud or Legitimate</li>
+    </ul>
+    <p>Labels are required for supervised learning.</p>
+
+    <h3>Model</h3>
+    <p>A model is a mathematical algorithm that learns patterns from data. Examples:</p>
+    <ul>
+      <li>Linear Regression</li>
+      <li>Logistic Regression</li>
+      <li>Decision Trees</li>
+      <li>Random Forest</li>
+      <li>Neural Networks</li>
+    </ul>
+  </section>
+
+  <section id="s5">
+    <h2>5. Supervised Learning</h2>
+    <p>Supervised learning is the most common type of machine learning. In supervised learning, the dataset includes <strong>Features + Correct Labels</strong>. The model learns to predict the labels.</p>
+
+    <h3>Example — Spam Detection</h3>
+    <table>
+      <thead><tr><th>Email Length</th><th>Contains Link</th><th>Label</th></tr></thead>
+      <tbody>
+        <tr><td>200</td><td>Yes</td><td>Spam</td></tr>
+        <tr><td>50</td><td>No</td><td>Not Spam</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Classification</h3>
+    <p>Predicts categories (discrete values): Spam vs Not Spam, Malicious vs Safe, Attack vs Normal.</p>
+
+    <h3>Regression</h3>
+    <p>Predicts continuous numeric values: stock prices, energy usage, risk scores.</p>
+  </section>
+
+  <section id="s6">
+    <h2>6. Unsupervised Learning</h2>
+    <p>Unsupervised learning is used when datasets do not have labels. The model attempts to find hidden patterns in the data.</p>
+    <ul>
+      <li>Customer segmentation</li>
+      <li>Network traffic clustering</li>
+      <li>Anomaly detection</li>
+    </ul>
+
+    <h3>Clustering</h3>
+    <p>Clustering groups similar data points together. For example, network traffic may be grouped into clusters of normal behavior — unusual traffic that does not belong to any cluster may indicate suspicious activity.</p>
+  </section>
+
+  <section id="s7">
+    <h2>7. The Machine Learning Workflow</h2>
+
+    <h3>Step 1 — Data Collection</h3>
+    <p>Data must be collected from relevant sources: log files, security alerts, transaction records, sensor data. The quality of data strongly impacts model performance.</p>
+
+    <h3>Step 2 — Data Preparation</h3>
+    <p>Data must be cleaned and structured before training a model:</p>
+    <ul>
+      <li>Handling missing values</li>
+      <li>Removing duplicates</li>
+      <li>Formatting data</li>
+      <li>Encoding categorical variables</li>
+    </ul>
+    <p>This process is often called <em>data preprocessing</em>.</p>
+
+    <h3>Step 3 — Feature Engineering</h3>
+    <p>Selecting and creating useful input variables. From login logs we might create features such as:</p>
+    <ul>
+      <li>Number of login attempts in the past hour</li>
+      <li>Number of failed logins</li>
+      <li>Number of unique IP addresses used</li>
+    </ul>
+
+    <h3>Step 4 — Train/Test Split</h3>
+    <p>Datasets are usually divided into Training Data and Testing Data. Typical split: 70–80% training, 20–30% testing.</p>
+
+    <h3>Step 5 — Model Training</h3>
+    <pre><code>model.fit(X_train, y_train)</code></pre>
+    <p>The algorithm adjusts parameters to minimize prediction errors.</p>
+
+    <h3>Step 6 — Model Prediction</h3>
+    <pre><code>predictions = model.predict(X_test)</code></pre>
+
+    <h3>Step 7 — Model Evaluation</h3>
+    <p>Common metrics: Accuracy, Precision, Recall, Mean Squared Error.</p>
+  </section>
+
+  <section id="s8">
+    <h2>8. Introduction to Scikit-Learn</h2>
+    <p>Scikit-learn is one of the most widely used machine learning libraries in Python. It provides tools for data preprocessing, model training, evaluation, and feature selection.</p>
+
+    <h3>Example Workflow</h3>
+    <p>Load dataset:</p>
+    <pre><code>import pandas as pd
+data = pd.read_csv("data.csv")</code></pre>
+
+    <p>Prepare features and labels:</p>
+    <pre><code>X = data[["feature1", "feature2"]]
+y = data["label"]</code></pre>
+
+    <p>Split dataset:</p>
+    <pre><code>from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)</code></pre>
+
+    <p>Train model:</p>
+    <pre><code>from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X_train, y_train)</code></pre>
+
+    <p>Make predictions:</p>
+    <pre><code>predictions = model.predict(X_test)</code></pre>
+
+    <p>Evaluate accuracy:</p>
+    <pre><code>from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(y_test, predictions)
+print(accuracy)</code></pre>
+  </section>
+
+  <section id="s9">
+    <h2>9. Interpreting Model Results</h2>
+    <p>Predictions represent the model's estimated outcome. For example:</p>
+    <pre><code>[0, 1, 0, 1, 1]</code></pre>
+    <p>Where <code>0 = Normal</code> and <code>1 = Suspicious</code>. Evaluation metrics help determine model reliability.</p>
+  </section>
+
+  <section id="s10">
+    <h2>10. Limitations of Machine Learning</h2>
+    <p>Machine learning models are powerful but have limitations. Common challenges include:</p>
+    <ul>
+      <li>Poor quality data</li>
+      <li>Biased datasets</li>
+      <li>Overfitting</li>
+      <li>False positives and false negatives</li>
+    </ul>
+    <div class="callout">
+      <div class="label">Note</div>
+      Models should always be used with human oversight and domain expertise.
+    </div>
+  </section>
+
+  <section id="s11">
+    <h2>11. Preparing for Course 02 — Machine Learning</h2>
+    <p>In Course 02 you will learn:</p>
+    <ul>
+      <li>More advanced ML algorithms</li>
+      <li>Feature engineering techniques</li>
+      <li>Model evaluation strategies</li>
+      <li>Model tuning and optimization</li>
+      <li>Real-world ML pipelines</li>
+    </ul>
+    <p>The Python and data analysis skills developed in Course 01 are essential for success in Machine Learning.</p>
+  </section>
+
+  <section id="takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>Machine learning enables computers to learn patterns from data.</li>
+      <li>Key concepts: datasets, features, labels, models.</li>
+      <li>Workflows include data preparation, model training, and model evaluation.</li>
+      <li>ML is widely used in cybersecurity to detect threats and analyze behavior.</li>
+    </ul>
+  </section>
+
+  <section id="resources">
+    <h2>Additional Learning Resources (Open Access)</h2>
+
+    <details open>
+      <summary>1. What is Machine Learning?</summary>
+      <ul>
+        <li><a href="https://developers.google.com/machine-learning/crash-course/ml-intro">Google ML Crash Course — Introduction to ML</a></li>
+        <li><a href="https://www.ibm.com/topics/machine-learning">IBM Introduction to Machine Learning</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>2. Why Machine Learning Matters</summary>
+      <ul>
+        <li><a href="https://learn.microsoft.com/en-us/training/modules/introduction-to-machine-learning/">Microsoft AI Learning Path</a></li>
+        <li><a href="https://www.technologyreview.com/2017/11/17/105788/machine-learning-explained/">MIT Technology Review — ML Explained</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>3. Machine Learning in Cybersecurity</summary>
+      <ul>
+        <li><a href="https://csrc.nist.gov/publications">NIST Cybersecurity Resource Library</a></li>
+        <li><a href="https://cloud.google.com/learn/what-is-machine-learning">Google Cloud — ML in Security</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>4. Key Concepts</summary>
+      <ul>
+        <li><a href="https://scikit-learn.org/stable/getting_started.html">Scikit-Learn Getting Started</a></li>
+        <li><a href="https://www.kaggle.com/learn/intro-to-machine-learning">Kaggle Intro to ML</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>5. Supervised Learning</summary>
+      <ul>
+        <li><a href="https://developers.google.com/machine-learning/crash-course/supervised-learning">Google ML Crash Course — Supervised Learning</a></li>
+        <li><a href="https://statquest.org/">StatQuest — Supervised Learning Video Series</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>6. Unsupervised Learning</summary>
+      <ul>
+        <li><a href="https://developers.google.com/machine-learning/clustering">Google ML Crash Course — Clustering</a></li>
+        <li><a href="https://scikit-learn.org/stable/modules/clustering.html">Scikit-Learn Clustering Tutorial</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>7. The ML Workflow</summary>
+      <ul>
+        <li><a href="https://scikit-learn.org/stable/tutorial/basic/tutorial.html">Scikit-Learn Workflow Tutorial</a></li>
+        <li><a href="https://developers.google.com/machine-learning/guides/rules-of-ml">Google ML Workflow Guide</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>8. Scikit-Learn</summary>
+      <ul>
+        <li><a href="https://scikit-learn.org/stable/">Official Scikit-Learn Documentation</a></li>
+        <li><a href="https://scikit-learn.org/stable/tutorial/index.html">Scikit-Learn Hands-On Tutorial</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>9. Interpreting Model Results</summary>
+      <ul>
+        <li><a href="https://scikit-learn.org/stable/modules/model_evaluation.html">Scikit-Learn Model Evaluation Guide</a></li>
+        <li><a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy">Google ML Crash Course — Evaluation Metrics</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>10. Limitations</summary>
+      <ul>
+        <li><a href="https://ai.google/responsibilities/responsible-ai-practices/">Google Responsible AI Guide</a></li>
+        <li><a href="https://ethics.mit.edu/">MIT Open Learning — Ethics of AI</a></li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>11. Preparing for Course 02</summary>
+      <ul>
+        <li><a href="https://www.kaggle.com/learn">Kaggle Python + ML Path</a></li>
+        <li><a href="https://www.coursera.org/specializations/machine-learning-introduction">Andrew Ng ML Specialization</a></li>
+      </ul>
+    </details>
+
+    <h3>Recommended Learning Strategy</h3>
+    <ul>
+      <li>Practicing Python regularly</li>
+      <li>Reviewing basic statistics concepts</li>
+      <li>Understanding how datasets are structured</li>
+      <li>Learning how models are trained and evaluated</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

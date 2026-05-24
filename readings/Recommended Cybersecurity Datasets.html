@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recommended Cybersecurity Datasets</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5f6b7a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f4f6f8;
+    --side-bg: #f8fafc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --fg: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --border: #1f2937;
+      --code-bg: #161a22;
+      --side-bg: #11151c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+  body {
+    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+  nav.toc {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--side-bg);
+    border-right: 1px solid var(--border);
+    padding: 24px 18px;
+    font-size: 14px;
+  }
+  nav.toc h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: item; }
+  nav.toc ol li { counter-increment: item; margin: 4px 0; }
+  nav.toc ol li::before {
+    content: counter(item) ".";
+    color: var(--muted);
+    display: inline-block;
+    width: 24px;
+    text-align: right;
+    margin-right: 6px;
+  }
+  nav.toc a { color: var(--fg); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+  main {
+    padding: 48px 56px 96px;
+    max-width: 880px;
+  }
+  header.doc-header {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+  }
+  header.doc-header .eyebrow {
+    color: var(--muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  header.doc-header h1 { font-size: 32px; margin: 6px 0 4px; line-height: 1.2; }
+  header.doc-header .subtitle { color: var(--muted); font-size: 18px; }
+  section { margin: 40px 0; scroll-margin-top: 16px; }
+  section h2 {
+    font-size: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+  }
+  section h3 { font-size: 18px; margin: 24px 0 6px; }
+  p { margin: 8px 0; }
+  ul { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  pre, code { font-family: "JetBrains Mono", Consolas, Menlo, monospace; }
+  pre {
+    background: var(--code-bg);
+    padding: 14px 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 14px;
+    border: 1px solid var(--border);
+  }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; font-size: 13.5px; }
+  pre code { background: none; padding: 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+  th { background: var(--code-bg); }
+  .callout {
+    background: var(--code-bg);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 4px;
+  }
+  .callout.warn { border-left-color: #d97706; }
+  .callout .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .callout.warn .label { color: #d97706; }
+  .dataset {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin: 16px 0;
+    background: var(--side-bg);
+  }
+  .dataset h3 { margin: 0 0 8px; font-size: 18px; }
+  .dataset .tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .dataset .source { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+  .dataset .links { margin: 8px 0; }
+  .dataset .links a { word-break: break-all; }
+  .pros li { list-style: none; position: relative; padding-left: 20px; }
+  .pros li::before {
+    content: "\2714";
+    color: #16a34a;
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+  }
+  a { color: var(--accent); }
+  @media (max-width: 860px) {
+    body { grid-template-columns: 1fr; }
+    nav.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    main { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <h2>Datasets</h2>
+  <ol>
+    <li><a href="#expectations">Dataset Expectations</a></li>
+    <li><a href="#rules">Rules</a></li>
+    <li><a href="#cicids">CICIDS 2017</a></li>
+    <li><a href="#unsw">UNSW-NB15</a></li>
+    <li><a href="#nslkdd">NSL-KDD</a></li>
+    <li><a href="#phishing">Phishing Websites</a></li>
+    <li><a href="#spam">Email Spam</a></li>
+  </ol>
+</nav>
+
+<main>
+  <header class="doc-header">
+    <div class="eyebrow">Resource Guide</div>
+    <h1>Recommended Cybersecurity Datasets</h1>
+    <div class="subtitle">Real, open datasets for capstone &amp; ML projects</div>
+  </header>
+
+  <section id="expectations">
+    <h2>Dataset Expectations</h2>
+    <ul>
+      <li>Realistic size and complexity</li>
+      <li>Includes:
+        <ul>
+          <li>Missing values</li>
+          <li>Noise or inconsistencies</li>
+          <li>Clear prediction/classification target</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section id="rules">
+    <h2>Rules</h2>
+    <div class="callout warn">
+      <div class="label">Important</div>
+      <ul>
+        <li>Students must use the provided dataset</li>
+        <li>Any dataset change requires instructor approval</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="cicids">
+    <h2>Recommended Real Open Cybersecurity Datasets</h2>
+
+    <div class="dataset">
+      <h3>1. CICIDS 2017<span class="tag">Highly Recommended</span></h3>
+      <div class="source">Source: Canadian Institute for Cybersecurity (University of New Brunswick)</div>
+      <p><strong>Use Case:</strong> Intrusion detection, anomaly detection, attack classification</p>
+      <div class="links">
+        Official Download Page: <a href="https://www.unb.ca/cic/datasets/ids-2017.html">unb.ca/cic/datasets/ids-2017.html</a><br>
+        Kaggle Version (easier access): <a href="https://www.kaggle.com/datasets/cicdataset/cicids2017">kaggle.com/datasets/cicdataset/cicids2017</a>
+      </div>
+      <p><strong>What It Includes:</strong></p>
+      <ul>
+        <li>Network flow features</li>
+        <li>Benign vs malicious traffic</li>
+        <li>Multiple attack types:
+          <ul>
+            <li>DDoS</li>
+            <li>Brute Force</li>
+            <li>Botnet</li>
+            <li>Web attacks</li>
+            <li>Port scans</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="unsw">
+    <div class="dataset">
+      <h3>2. UNSW-NB15 Dataset</h3>
+      <div class="source">Source: Australian Centre for Cyber Security</div>
+      <div class="links">
+        Official Page: <a href="https://research.unsw.edu.au/projects/unsw-nb15-dataset">research.unsw.edu.au/projects/unsw-nb15-dataset</a><br>
+        Kaggle Version: <a href="https://www.kaggle.com/datasets/mrwellsdavid/unsw-nb15">kaggle.com/datasets/mrwellsdavid/unsw-nb15</a>
+      </div>
+      <p><strong>Includes:</strong></p>
+      <ul>
+        <li>49 network features</li>
+        <li>Labeled attack categories</li>
+        <li>Realistic synthetic traffic</li>
+      </ul>
+      <ul class="pros">
+        <li>Excellent for classification projects</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="nslkdd">
+    <div class="dataset">
+      <h3>3. NSL-KDD Dataset <span class="tag">Classic IDS</span></h3>
+      <div class="links">
+        Kaggle: <a href="https://www.kaggle.com/datasets/hassan06/nslkdd">kaggle.com/datasets/hassan06/nslkdd</a>
+      </div>
+      <p><strong>Includes:</strong></p>
+      <ul>
+        <li>Network intrusion records</li>
+        <li>Labeled attacks</li>
+        <li>Simplified version of KDD Cup 1999 dataset</li>
+      </ul>
+      <ul class="pros">
+        <li>Good for beginners</li>
+        <li>Lightweight</li>
+        <li>Easy to clean and model</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="phishing">
+    <div class="dataset">
+      <h3>4. Phishing Websites Dataset</h3>
+      <div class="links">
+        UCI Machine Learning Repository: <a href="https://archive.ics.uci.edu/ml/datasets/phishing+websites">archive.ics.uci.edu/ml/datasets/phishing+websites</a>
+      </div>
+      <ul class="pros">
+        <li>Structured</li>
+        <li>Good for binary classification</li>
+        <li>Excellent intro to ML-based detection</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="spam">
+    <div class="dataset">
+      <h3>5. Email Spam Dataset <span class="tag">Cybersecurity</span></h3>
+      <div class="links">
+        UCI Spam Dataset: <a href="https://archive.ics.uci.edu/ml/datasets/spambase">archive.ics.uci.edu/ml/datasets/spambase</a>
+      </div>
+      <ul class="pros">
+        <li>Spam detection</li>
+        <li>Feature-based classification</li>
+        <li>Good for probability/statistics application</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

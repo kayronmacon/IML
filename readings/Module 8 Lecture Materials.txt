@@ -1,0 +1,569 @@
+Module 8 Lecture Materials
+
+Introduction to Machine Learning Concepts (Optional
+Module)
+
+1. What is Machine Learning?
+
+Machine Learning (ML) is a field of artificial intelligence that focuses on building systems that
+learn patterns from data and use those patterns to make predictions or decisions without being
+explicitly programmed.
+Traditional programming follows this structure:
+Input Data + Rules  Output
+Machine learning reverses this process:
+Input Data + Output Labels  Model learns the Rules
+The model then applies these learned rules to new data.
+
+Example
+
+Traditional Programming:
+
+if email contains "free money":
+       spam = True
+
+Machine Learning:
+A model analyzes thousands of emails labeled spam or not spam and learns patterns
+automatically.
+The model then predicts whether a new email is spam.
+
+2. Why Machine Learning Matters
+
+Machine learning is widely used across many industries because it enables systems to identify
+patterns and make predictions from large datasets.
+Examples include:
+Healthcare
+
+    · Disease prediction
+    · Medical image analysis
+
+Finance
+
+    · Fraud detection
+    · Risk modeling
+
+Retail
+
+    · Product recommendations
+    · Customer behavior analysis
+
+Cybersecurity
+
+    · Intrusion detection
+    · Malware classification
+    · Login anomaly detection
+
+Machine learning allows organizations to detect patterns that humans cannot easily identify
+manually.
+
+3. Machine Learning in Cybersecurity
+
+Machine learning plays a growing role in modern cybersecurity systems.
+
+Security teams collect large amounts of data from:
+
+    · Network logs
+    · Authentication records
+    · System activity
+    · User behavior
+    · Firewall alerts
+
+Machine learning models analyze these datasets to detect suspicious activity.
+
+Example Applications
+
+Spam Detection
+Classifying emails as spam or legitimate.
+Intrusion Detection
+Detecting unusual network traffic that may indicate an attack.
+
+User Behavior Analytics
+Detecting abnormal login behavior that could indicate compromised accounts.
+
+Threat Classification
+Classifying malicious software or network activity.
+
+Machine learning helps security analysts automate detection and prioritize threats.
+
+4. Key Concepts in Machine Learning
+
+Understanding machine learning requires familiarity with several key concepts.
+
+Dataset
+
+A dataset is a collection of data used to train and evaluate machine learning models.
+Datasets typically contain rows and columns.
+Example dataset:
+
+User Login Attempts Time Location Label
+
+A3    10:00 US                       Normal
+
+B 25  02:30 Unknown Suspicious
+
+Each row represents an observation.
+
+Features
+
+Features are the input variables used by the model to make predictions.
+
+Examples of features in cybersecurity:
+
+    · Number of login attempts
+    · Time of login
+    · IP address location
+    · Device type
+    · Data transfer volume
+Features help the model identify patterns.
+
+Labels
+
+Labels represent the correct answer or outcome that the model is trying to predict.
+Examples:
+Spam or Not Spam
+Malicious or Benign
+Fraud or Legitimate
+Labels are required for supervised learning.
+
+Model
+
+A model is a mathematical algorithm that learns patterns from data.
+Examples of models include:
+
+    · Linear Regression
+    · Logistic Regression
+    · Decision Trees
+    · Random Forest
+    · Neural Networks
+The model learns relationships between features and labels.
+
+5. Supervised Learning
+
+Supervised learning is the most common type of machine learning.
+In supervised learning, the dataset includes:
+Features + Correct Labels
+The model learns to predict the labels.
+
+Example
+Dataset for spam detection:
+
+Email Length Contains Link Label
+
+200  Yes                     Spam
+
+50   No                      Not Spam
+
+The model learns patterns that distinguish spam emails.
+
+Types of Supervised Learning
+
+Classification
+Classification predicts categories.
+Examples:
+Spam vs Not Spam
+Malicious vs Safe
+Attack vs Normal
+Classification outputs discrete values.
+
+Regression
+Regression predicts continuous numeric values.
+Examples:
+Predicting stock prices
+Predicting energy usage
+Predicting risk scores
+Regression outputs numbers.
+
+6. Unsupervised Learning
+
+Unsupervised learning is used when datasets do not have labels.
+The model attempts to find hidden patterns in the data.
+Examples:
+Customer segmentation
+Network traffic clustering
+Anomaly detection
+
+Clustering
+
+Clustering groups similar data points together.
+Example:
+Network traffic may be grouped into clusters of normal behavior.
+Unusual traffic that does not belong to any cluster may indicate suspicious activity.
+
+7. The Machine Learning Workflow
+
+Building a machine learning model follows several important steps.
+
+Step 1: Data Collection
+
+Data must be collected from relevant sources.
+Examples:
+
+    · Log files
+    · Security alerts
+    · Transaction records
+    · Sensor data
+The quality of data strongly impacts model performance.
+
+Step 2: Data Preparation
+Data must be cleaned and structured before training a model.
+Tasks include:
+Handling missing values
+Removing duplicates
+Formatting data
+Encoding categorical variables
+This process is often called data preprocessing.
+
+Step 3: Feature Engineering
+
+Feature engineering involves selecting and creating useful input variables.
+Example:
+From login logs we might create features such as:
+Number of login attempts in the past hour
+Number of failed logins
+Number of unique IP addresses used
+Better features improve model accuracy.
+
+Step 4: Train/Test Split
+
+Datasets are usually divided into:
+Training Data
+Testing Data
+Typical split:
+70­80% Training
+20­30% Testing
+Training data is used to train the model.
+Testing data evaluates how well the model performs on new data.
+Step 5: Model Training
+
+The model learns patterns from the training data.
+Example in Python:
+
+model.fit(X_train, y_train)
+
+The algorithm adjusts parameters to minimize prediction errors.
+
+Step 6: Model Prediction
+
+Once trained, the model can make predictions on new data.
+Example:
+
+predictions = model.predict(X_test)
+
+Step 7: Model Evaluation
+
+Model performance must be evaluated using metrics.
+Common metrics include:
+Accuracy
+Precision
+Recall
+Mean Squared Error
+Evaluation helps determine whether the model performs well.
+
+8. Introduction to Scikit-Learn
+
+Scikit-learn is one of the most widely used machine learning libraries in Python.
+It provides tools for:
+Data preprocessing
+Model training
+Model evaluation
+Feature selection
+
+Scikit-learn supports many machine learning algorithms.
+
+Example Workflow
+
+Load dataset:
+
+import pandas as pd
+data = pd.read_csv("data.csv")
+
+Prepare features and labels:
+
+X = data[["feature1","feature2"]]
+y = data["label"]
+
+Split dataset:
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+
+       X, y, test_size=0.2, random_state=42)
+
+Train model:
+
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+Make predictions:
+
+predictions = model.predict(X_test)
+
+Evaluate accuracy:
+
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(y_test, predictions)
+print(accuracy)
+
+9. Interpreting Model Results
+
+Understanding model output is important.
+Predictions represent the model's estimated outcome.
+For example:
+
+[0, 1, 0, 1, 1]
+
+Where:
+0 = Normal
+1 = Suspicious
+Evaluation metrics help determine model reliability.
+
+10. Limitations of Machine Learning
+
+Machine learning models are powerful but have limitations.
+Common challenges include:
+Poor quality data
+Biased datasets
+Overfitting
+False positives and false negatives
+Models should always be used with human oversight and domain expertise.
+
+11. Preparing for Course 02 ­ Machine
+Learning
+
+This module introduces core concepts that will be explored more deeply in the next course.
+In Course 02 ­ Machine Learning, you will learn:
+More advanced ML algorithms
+Feature engineering techniques
+Model evaluation strategies
+Model tuning and optimization
+Real-world ML pipelines
+The Python and data analysis skills developed in Course 01 are essential for success in Machine
+Learning.
+
+Key Takeaways
+
+Machine learning enables computers to learn patterns from data.
+
+Key concepts include:
+
+Datasets
+Features
+Labels
+Models
+
+Machine learning workflows include:
+
+Data preparation
+Model training
+Model evaluation
+
+Machine learning is widely used in cybersecurity to detect threats and analyze behavior.
+
+This module provides a foundation that prepares you for advanced machine learning
+techniques in the next course.
+
+    Additional Learning Resources (Open
+Access)
+
+The following materials provide deeper explanations, interactive tutorials, and examples for
+students who want to explore machine learning concepts beyond this module. These resources
+are widely used in academic and industry training.
+
+1. What is Machine Learning?
+
+To understand the basic idea of machine learning and how it differs from traditional
+programming, review the following resources.
+Google Machine Learning Crash Course ­ Introduction to ML
+https://developers.google.com/machine-learning/crash-course/ml-intro
+This interactive course explains:
+
+    · What machine learning is
+    · How models learn patterns from data
+    · Basic ML terminology
+
+IBM Introduction to Machine Learning (Open Learning)
+https://www.ibm.com/topics/machine-learning
+This resource explains:
+
+    · What ML is
+    · Real-world applications
+    · Key concepts in simple language.
+
+2. Why Machine Learning Matters
+
+To understand how machine learning is used across industries, explore the following materials.
+Microsoft AI Learning Path ­ Introduction to Machine Learning
+https://learn.microsoft.com/en-us/training/modules/introduction-to-machine-learning/
+This resource discusses:
+
+    · Why organizations use machine learning
+    · Business and technology applications
+    · Real-world use cases.
+
+MIT Technology Review ­ Machine Learning Explained
+https://www.technologyreview.com/2017/11/17/105788/machine-learning-explained/
+Provides a clear explanation of how ML impacts modern technology.
+3. Machine Learning in Cybersecurity
+
+Machine learning is increasingly used in cybersecurity analytics.
+
+The following resources explain how ML supports threat detection.
+
+NIST Cybersecurity Resource Library
+https://csrc.nist.gov/publications
+
+Examples include research on:
+
+    · Intrusion detection
+    · Threat analytics
+    · Security monitoring
+
+Google Cloud ­ Machine Learning in Security
+https://cloud.google.com/learn/what-is-machine-learning
+
+This resource explains how ML is applied in areas such as:
+
+    · Threat detection
+    · Fraud detection
+    · Security monitoring.
+
+4. Key Concepts in Machine Learning
+
+To strengthen understanding of datasets, features, labels, and models, explore the following
+resources.
+
+Scikit-Learn Getting Started Guide
+https://scikit-learn.org/stable/getting_started.html
+
+Explains:
+
+    · Features and labels
+    · Model training
+    · Prediction workflows
+Kaggle Intro to Machine Learning (Free Course)
+https://www.kaggle.com/learn/intro-to-machine-learning
+This beginner-friendly course introduces:
+
+    · Training models
+    · Data preparation
+    · Model evaluation.
+
+5. Supervised Learning
+
+To explore supervised learning techniques such as classification and regression, review the
+following materials.
+Google ML Crash Course ­ Supervised Learning
+https://developers.google.com/machine-learning/crash-course/supervised-learning
+Topics include:
+
+    · Classification
+    · Regression
+    · Training datasets.
+
+StatQuest ­ Supervised Learning Video Series
+https://statquest.org/
+StatQuest videos are widely used in universities to explain ML concepts clearly.
+
+6. Unsupervised Learning
+
+Unsupervised learning identifies patterns in unlabeled datasets.
+Google ML Crash Course ­ Clustering
+https://developers.google.com/machine-learning/clustering
+Explains:
+
+    · Clustering
+    · Pattern detection
+    · Unlabeled datasets.
+
+Scikit-Learn Clustering Tutorial
+https://scikit-learn.org/stable/modules/clustering.html
+Includes examples of clustering algorithms used in real-world applications.
+
+7. The Machine Learning Workflow
+
+Understanding the ML workflow is critical before building models.
+Scikit-Learn Machine Learning Workflow Tutorial
+https://scikit-learn.org/stable/tutorial/basic/tutorial.html
+Covers:
+
+    · Data preparation
+    · Training models
+    · Model evaluation.
+
+Google ML Workflow Guide
+https://developers.google.com/machine-learning/guides/rules-of-ml
+This guide explains best practices for building ML systems.
+
+8. Introduction to Scikit-Learn
+
+Scikit-learn is one of the most widely used Python libraries for machine learning.
+Official Scikit-Learn Documentation
+https://scikit-learn.org/stable/
+Includes tutorials for:
+
+    · Regression models
+    · Classification models
+    · Model evaluation.
+
+Scikit-Learn Hands-On Tutorial
+https://scikit-learn.org/stable/tutorial/index.html
+Provides beginner examples of ML models implemented in Python.
+
+9. Interpreting Model Results
+
+Understanding model outputs and performance metrics is essential.
+Scikit-Learn Model Evaluation Guide
+https://scikit-learn.org/stable/modules/model_evaluation.html
+Explains:
+
+    · Accuracy
+    · Precision
+    · Recall
+    · Confusion matrix.
+
+Google ML Crash Course ­ Evaluation Metrics
+https://developers.google.com/machine-learning/crash-course/classification/accuracy
+Provides visual explanations of model evaluation metrics.
+
+10. Limitations of Machine Learning
+
+Machine learning models can produce errors and biases.
+Students should understand the limitations of ML systems.
+Google Responsible AI Guide
+https://ai.google/responsibilities/responsible-ai-practices/
+Explains:
+    · Bias in datasets
+    · Ethical concerns
+    · Responsible AI design.
+
+MIT Open Learning ­ Ethics of AI
+https://ethics.mit.edu/
+Provides insight into ethical considerations of AI and ML systems.
+
+11. Preparing for Course 02 ­ Machine
+Learning
+
+Students who want to get ahead before the next course may explore these introductory materials.
+Kaggle Python + Machine Learning Path
+https://www.kaggle.com/learn
+Recommended courses:
+
+    · Python
+    · Intro to Machine Learning
+    · Intermediate Machine Learning.
+
+Andrew Ng Machine Learning Specialization (Preview Materials)
+https://www.coursera.org/specializations/machine-learning-introduction
+This is one of the most widely used ML courses globally.
+
+    Recommended Learning Strategy
+
+Students preparing for Course 02 ­ Machine Learning should focus on:
+    · Practicing Python regularly
+    · Reviewing basic statistics concepts
+    · Understanding how datasets are structured
+    · Learning how models are trained and evaluated.
+
+The stronger your Python and data analysis foundation, the more successful you will be in
+Machine Learning.
+

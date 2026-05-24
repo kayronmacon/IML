@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Python Libraries for Cybersecurity</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5f6b7a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f4f6f8;
+    --side-bg: #f8fafc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --fg: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --border: #1f2937;
+      --code-bg: #161a22;
+      --side-bg: #11151c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+  body {
+    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+  nav.toc {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--side-bg);
+    border-right: 1px solid var(--border);
+    padding: 24px 18px;
+    font-size: 14px;
+  }
+  nav.toc h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: item; }
+  nav.toc ol li { counter-increment: item; margin: 4px 0; }
+  nav.toc ol li::before {
+    content: counter(item) ".";
+    color: var(--muted);
+    display: inline-block;
+    width: 24px;
+    text-align: right;
+    margin-right: 6px;
+  }
+  nav.toc a { color: var(--fg); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+  main {
+    padding: 48px 56px 96px;
+    max-width: 880px;
+  }
+  header.doc-header {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+  }
+  header.doc-header .eyebrow {
+    color: var(--muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  header.doc-header h1 { font-size: 32px; margin: 6px 0 4px; line-height: 1.2; }
+  header.doc-header .subtitle { color: var(--muted); font-size: 18px; }
+  section { margin: 40px 0; scroll-margin-top: 16px; }
+  section h2 {
+    font-size: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+  }
+  section h3 {
+    font-size: 18px;
+    margin: 24px 0 6px;
+    font-family: "JetBrains Mono", Consolas, Menlo, monospace;
+  }
+  section h3.plain { font-family: inherit; }
+  p { margin: 8px 0; }
+  ul { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  pre, code { font-family: "JetBrains Mono", Consolas, Menlo, monospace; }
+  pre {
+    background: var(--code-bg);
+    padding: 14px 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 14px;
+    border: 1px solid var(--border);
+  }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; font-size: 13.5px; }
+  pre code { background: none; padding: 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+  th { background: var(--code-bg); }
+  .callout {
+    background: var(--code-bg);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 4px;
+  }
+  .callout.warn { border-left-color: #d97706; }
+  .callout .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .callout.warn .label { color: #d97706; }
+  .lib {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin: 16px 0;
+    background: var(--side-bg);
+  }
+  .lib h3 {
+    margin: 0 0 8px;
+    font-family: "JetBrains Mono", Consolas, Menlo, monospace;
+    font-size: 17px;
+  }
+  .lib .meta { color: var(--muted); font-size: 13px; margin-top: 8px; }
+  .lib .meta a { word-break: break-all; }
+  a { color: var(--accent); }
+  @media (max-width: 860px) {
+    body { grid-template-columns: 1fr; }
+    nav.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    main { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <h2>Python Libraries</h2>
+  <ol>
+    <li><a href="#s1">Foundational Libraries</a></li>
+    <li><a href="#s2">Applied Cybersecurity</a></li>
+    <li><a href="#s3">Defensive &amp; Monitoring</a></li>
+    <li><a href="#s4">Ethical Hacking &amp; Testing</a></li>
+    <li><a href="#s5">AI &amp; Cybersecurity Integration</a></li>
+    <li><a href="#progression">Learning Progression</a></li>
+    <li><a href="#nice">NICE/NIST Alignment</a></li>
+    <li><a href="#projects">Mini-Projects</a></li>
+  </ol>
+</nav>
+
+<main>
+  <header class="doc-header">
+    <div class="eyebrow">Resource Guide</div>
+    <h1>Python Libraries for Cybersecurity</h1>
+    <div class="subtitle">Introductory &rarr; Applied &rarr; Advanced Toolkit</div>
+  </header>
+
+  <p>This curated resource guide is designed for entry-level to early-intermediate cybersecurity learners and aligns with foundational workforce competencies reflected in the <strong>NICE Workforce Framework (NIST SP 800-181 Rev.1)</strong> published by the National Institute of Standards and Technology.</p>
+  <p>The libraries below are categorized by function and skill level to support structured learning pathways and project-based application.</p>
+
+  <section id="s1">
+    <h2 class="plain">1. Foundational Python Libraries (Beginner-Friendly)</h2>
+    <p>These are essential for building cybersecurity scripts and understanding core concepts.</p>
+
+    <div class="lib">
+      <h3>hashlib</h3>
+      <p><strong>Purpose:</strong> Hashing passwords and files</p>
+      <p><strong>Use Cases:</strong> SHA-256, MD5 (education only), file integrity checks</p>
+      <pre><code>import hashlib
+password = "securepassword"
+hash_object = hashlib.sha256(password.encode())
+print(hash_object.hexdigest())</code></pre>
+      <div class="meta">
+        Docs: <a href="https://docs.python.org/3/library/hashlib.html">docs.python.org/3/library/hashlib.html</a><br>
+        NICE Alignment: Encryption &amp; data integrity knowledge (K0157)
+      </div>
+    </div>
+
+    <div class="lib">
+      <h3>secrets</h3>
+      <p><strong>Purpose:</strong> Secure random token generation</p>
+      <p><strong>Use Cases:</strong> Password generators, session tokens</p>
+      <pre><code>import secrets
+print(secrets.token_hex(16))</code></pre>
+      <div class="meta">
+        Docs: <a href="https://docs.python.org/3/library/secrets.html">docs.python.org/3/library/secrets.html</a><br>
+        NICE Alignment: Secure authentication principles
+      </div>
+    </div>
+
+    <div class="lib">
+      <h3>socket</h3>
+      <p><strong>Purpose:</strong> Basic network communication</p>
+      <p><strong>Use Cases:</strong> Simple port scanning (educational), network basics</p>
+      <div class="meta">
+        Docs: <a href="https://docs.python.org/3/library/socket.html">docs.python.org/3/library/socket.html</a><br>
+        NICE Alignment: Networking fundamentals (K0001)
+      </div>
+    </div>
+  </section>
+
+  <section id="s2">
+    <h2 class="plain">2. Applied Cybersecurity Libraries</h2>
+
+    <div class="lib">
+      <h3>scapy</h3>
+      <p><strong>Purpose:</strong> Packet crafting and network analysis</p>
+      <p><strong>Use Cases:</strong> Traffic inspection, packet sniffing (lab use only)</p>
+      <pre><code>from scapy.all import sniff
+packets = sniff(count=5)
+packets.summary()</code></pre>
+      <div class="meta">
+        Site: <a href="https://scapy.net/">scapy.net</a><br>
+        NICE Alignment: Cyber Defense Analysis exposure
+      </div>
+    </div>
+
+    <div class="lib">
+      <h3>cryptography</h3>
+      <p><strong>Purpose:</strong> Advanced encryption &amp; key management</p>
+      <p><strong>Use Cases:</strong> AES encryption, secure key handling</p>
+      <div class="meta">
+        Site: <a href="https://cryptography.io/">cryptography.io</a><br>
+        NICE Alignment: Applied cryptographic principles
+      </div>
+    </div>
+
+    <div class="lib">
+      <h3>requests</h3>
+      <p><strong>Purpose:</strong> Web request automation</p>
+      <p><strong>Use Cases:</strong> API security testing basics, header inspection</p>
+      <pre><code>import requests
+response = requests.get("https://example.com")
+print(response.headers)</code></pre>
+      <div class="meta">
+        Docs: <a href="https://docs.python-requests.org/">docs.python-requests.org</a><br>
+        NICE Alignment: Web application awareness
+      </div>
+    </div>
+  </section>
+
+  <section id="s3">
+    <h2 class="plain">3. Defensive &amp; Monitoring Libraries</h2>
+
+    <div class="lib">
+      <h3>logging</h3>
+      <p><strong>Purpose:</strong> System logging</p>
+      <p><strong>Use Cases:</strong> Building secure applications with traceability</p>
+      <div class="meta">
+        Docs: <a href="https://docs.python.org/3/library/logging.html">docs.python.org/3/library/logging.html</a><br>
+        NICE Alignment: Log analysis fundamentals (S0078)
+      </div>
+    </div>
+
+    <div class="lib">
+      <h3>os &amp; pathlib</h3>
+      <p><strong>Purpose:</strong> File system monitoring</p>
+      <p><strong>Use Cases:</strong> File integrity checks, scanning directories</p>
+    </div>
+
+    <div class="lib">
+      <h3>yara-python</h3>
+      <p><strong>Purpose:</strong> Malware pattern matching</p>
+      <p><strong>Use Cases:</strong> Signature-based detection</p>
+      <div class="meta">
+        Docs: <a href="https://yara.readthedocs.io/">yara.readthedocs.io</a><br>
+        NICE Alignment: Malware analysis exposure
+      </div>
+    </div>
+  </section>
+
+  <section id="s4">
+    <h2 class="plain">4. Ethical Hacking &amp; Testing (Educational Use Only)</h2>
+
+    <div class="lib">
+      <h3>python-nmap</h3>
+      <p><strong>Purpose:</strong> Network scanning wrapper</p>
+      <p><strong>Use Cases:</strong> Port scanning labs</p>
+      <div class="meta">
+        Site: <a href="https://xael.org/pages/python-nmap-en.html">xael.org/pages/python-nmap-en.html</a>
+      </div>
+      <div class="callout warn">
+        <div class="label">Warning</div>
+        Must be used only in controlled lab environments.
+      </div>
+    </div>
+
+    <div class="lib">
+      <h3>pwntools</h3>
+      <p><strong>Purpose:</strong> Exploit development education</p>
+      <p><strong>Use Case:</strong> CTF competitions</p>
+    </div>
+  </section>
+
+  <section id="s5">
+    <h2 class="plain">5. AI &amp; Cybersecurity Integration</h2>
+
+    <div class="lib">
+      <h3>scikit-learn</h3>
+      <p><strong>Purpose:</strong> Anomaly detection</p>
+      <p><strong>Use Cases:</strong> Intrusion detection prototypes</p>
+      <div class="meta">
+        Site: <a href="https://scikit-learn.org/">scikit-learn.org</a>
+      </div>
+    </div>
+
+    <div class="lib">
+      <h3>pandas</h3>
+      <p><strong>Purpose:</strong> Log analysis</p>
+      <p><strong>Use Cases:</strong> Filtering suspicious events</p>
+      <pre><code>import pandas as pd
+logs = pd.read_csv("logs.csv")
+print(logs.head())</code></pre>
+    </div>
+
+    <div class="lib">
+      <h3>transformers (Hugging Face)</h3>
+      <p><strong>Purpose:</strong> NLP-based phishing detection</p>
+      <p><strong>Use Case:</strong> Email classification</p>
+      <div class="meta">
+        Docs: <a href="https://huggingface.co/docs/transformers">huggingface.co/docs/transformers</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="progression">
+    <h2>Suggested Learning Progression</h2>
+    <table>
+      <thead>
+        <tr><th>Level</th><th>Focus</th><th>Libraries</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Level 1</td><td>Security basics</td><td><code>hashlib</code>, <code>secrets</code>, <code>logging</code></td></tr>
+        <tr><td>Level 2</td><td>Network awareness</td><td><code>socket</code>, <code>requests</code></td></tr>
+        <tr><td>Level 3</td><td>Packet inspection</td><td><code>scapy</code></td></tr>
+        <tr><td>Level 4</td><td>Applied encryption</td><td><code>cryptography</code></td></tr>
+        <tr><td>Level 5</td><td>Log analytics</td><td><code>pandas</code></td></tr>
+        <tr><td>Level 6</td><td>AI detection</td><td><code>scikit-learn</code>, <code>transformers</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="nice">
+    <h2>NICE/NIST Workforce Framework Alignment</h2>
+    <p>This resource supports exposure to the following NICE work roles:</p>
+    <ul>
+      <li>Cyber Defense Analyst (PR-CDA-001)</li>
+      <li>Security Operations Support</li>
+      <li>Entry-Level Security Practitioner</li>
+    </ul>
+    <div class="callout">
+      <div class="label">Primary Reference</div>
+      NIST SP 800-181 Rev.1 — NICE Workforce Framework<br>
+      <a href="https://csrc.nist.gov/publications/detail/sp/800-181/rev-1/final">csrc.nist.gov/publications/detail/sp/800-181/rev-1/final</a>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Suggested Mini-Projects</h2>
+    <ol>
+      <li>Password strength checker (<code>hashlib</code> + <code>secrets</code>)</li>
+      <li>Log anomaly detection (<code>pandas</code> + <code>scikit-learn</code>)</li>
+      <li>Packet inspection demo (<code>scapy</code>)</li>
+      <li>File integrity monitor (<code>hashlib</code> + <code>os</code>)</li>
+      <li>Phishing email classifier (<code>transformers</code>)</li>
+    </ol>
+  </section>
+</main>
+
+</body>
+</html>

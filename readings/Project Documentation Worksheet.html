@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Documentation Worksheet</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5f6b7a;
+    --accent: #2563eb;
+    --border: #e5e7eb;
+    --code-bg: #f4f6f8;
+    --side-bg: #f8fafc;
+    --field-bg: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --fg: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --border: #1f2937;
+      --code-bg: #161a22;
+      --side-bg: #11151c;
+      --field-bg: #11151c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+  body {
+    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+  nav.toc {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--side-bg);
+    border-right: 1px solid var(--border);
+    padding: 24px 18px;
+    font-size: 14px;
+  }
+  nav.toc h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  nav.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: item; }
+  nav.toc ol li { counter-increment: item; margin: 4px 0; }
+  nav.toc ol li::before {
+    content: counter(item) ".";
+    color: var(--muted);
+    display: inline-block;
+    width: 24px;
+    text-align: right;
+    margin-right: 6px;
+  }
+  nav.toc a { color: var(--fg); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+  main {
+    padding: 48px 56px 96px;
+    max-width: 880px;
+  }
+  header.doc-header {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+  }
+  header.doc-header .eyebrow {
+    color: var(--muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  header.doc-header h1 { font-size: 32px; margin: 6px 0 4px; line-height: 1.2; }
+  header.doc-header .subtitle { color: var(--muted); font-size: 18px; }
+  section { margin: 40px 0; scroll-margin-top: 16px; }
+  section h2 {
+    font-size: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+  }
+  section h3 { font-size: 18px; margin: 24px 0 6px; }
+  p { margin: 8px 0; }
+  ul { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  label.field {
+    display: block;
+    margin: 14px 0;
+  }
+  label.field .label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+  input[type=text], textarea {
+    width: 100%;
+    background: var(--field-bg);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 15px;
+  }
+  textarea { min-height: 80px; resize: vertical; }
+  input[type=text]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+  }
+  .members { display: grid; gap: 8px; }
+  .crisp-step {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin: 16px 0;
+    background: var(--side-bg);
+  }
+  .crisp-step h3 {
+    margin-top: 0;
+    color: var(--accent);
+  }
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--code-bg);
+  }
+  .checkbox-row input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+  }
+  a { color: var(--accent); }
+  @media (max-width: 860px) {
+    body { grid-template-columns: 1fr; }
+    nav.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    main { padding: 24px; }
+  }
+  @media print {
+    body { grid-template-columns: 1fr; background: #fff; color: #000; }
+    nav.toc { display: none; }
+    main { padding: 0; max-width: 100%; }
+    input, textarea { border: 1px solid #888; background: #fff; color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <h2>Worksheet</h2>
+  <ol>
+    <li><a href="#purpose">Purpose</a></li>
+    <li><a href="#team">Team Information</a></li>
+    <li><a href="#github">GitHub Link</a></li>
+    <li><a href="#crisp">CRISP-DM Summary</a></li>
+    <li><a href="#methods">Methods Overview</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#reflection">Reflection</a></li>
+    <li><a href="#contribution">Team Contribution</a></li>
+  </ol>
+</nav>
+
+<main>
+  <header class="doc-header">
+    <div class="eyebrow">Course 01 Capstone</div>
+    <h1>Project Documentation Worksheet</h1>
+    <div class="subtitle">Professional reflection, methodology, and team accountability</div>
+  </header>
+
+  <section id="purpose">
+    <h2>Purpose</h2>
+    <p>Captures professional reflection, methodological clarity, and teamwork accountability for the Course 01 Capstone Project.</p>
+  </section>
+
+  <section id="team">
+    <h2>Team Information</h2>
+    <label class="field">
+      <span class="label">Team #</span>
+      <input type="text" placeholder="e.g., Team 04">
+    </label>
+    <label class="field">
+      <span class="label">Team Member Names</span>
+      <div class="members">
+        <input type="text" placeholder="Member 1">
+        <input type="text" placeholder="Member 2">
+        <input type="text" placeholder="Member 3">
+        <input type="text" placeholder="Member 4">
+      </div>
+    </label>
+  </section>
+
+  <section id="github">
+    <h2>Capstone GitHub Project Link</h2>
+    <label class="field">
+      <span class="label">Copy and paste the link here</span>
+      <input type="text" placeholder="https://github.com/...">
+    </label>
+  </section>
+
+  <section id="crisp">
+    <h2>Project Summary — CRISP-DM Framework</h2>
+
+    <div class="crisp-step">
+      <h3>1. Business Understanding</h3>
+      <label class="field">
+        <span class="label">Problem statement</span>
+        <textarea></textarea>
+      </label>
+      <label class="field">
+        <span class="label">Project goals and success criteria</span>
+        <textarea></textarea>
+      </label>
+    </div>
+
+    <div class="crisp-step">
+      <h3>2. Data Understanding</h3>
+      <label class="field">
+        <span class="label">Dataset used (source and description)</span>
+        <textarea></textarea>
+      </label>
+      <label class="field">
+        <span class="label">Key variables and initial observations</span>
+        <textarea></textarea>
+      </label>
+    </div>
+
+    <div class="crisp-step">
+      <h3>3. Data Preparation</h3>
+      <label class="field">
+        <span class="label">Main cleaning and transformation steps</span>
+        <textarea></textarea>
+      </label>
+      <label class="field">
+        <span class="label">Final dataset used for modeling</span>
+        <textarea></textarea>
+      </label>
+    </div>
+
+    <div class="crisp-step">
+      <h3>4. Modeling</h3>
+      <label class="field">
+        <span class="label">Algorithms applied</span>
+        <textarea></textarea>
+      </label>
+      <label class="field">
+        <span class="label">Reason for model selection</span>
+        <textarea></textarea>
+      </label>
+    </div>
+
+    <div class="crisp-step">
+      <h3>5. Evaluation</h3>
+      <label class="field">
+        <span class="label">Best model and performance metrics</span>
+        <textarea></textarea>
+      </label>
+      <label class="field">
+        <span class="label">Does the model meet project goals? Why or why not?</span>
+        <textarea></textarea>
+      </label>
+    </div>
+
+    <div class="crisp-step">
+      <h3>6. Insights &amp; Next Steps</h3>
+      <p style="color: var(--muted); font-size: 13px; margin-top: 0;">(Deployment excluded for Course 01)</p>
+      <label class="field">
+        <span class="label">Key analytical insight</span>
+        <textarea></textarea>
+      </label>
+    </div>
+  </section>
+
+  <section id="methods">
+    <h2>Methods Overview</h2>
+    <label class="field">
+      <span class="label">Key data cleaning steps</span>
+      <textarea></textarea>
+    </label>
+    <label class="field">
+      <span class="label">Feature engineering strategy</span>
+      <textarea></textarea>
+    </label>
+    <label class="field">
+      <span class="label">Models applied</span>
+      <textarea></textarea>
+    </label>
+  </section>
+
+  <section id="results">
+    <h2>Results</h2>
+    <label class="field">
+      <span class="label">Best model and performance metrics</span>
+      <textarea></textarea>
+    </label>
+    <label class="field">
+      <span class="label">Key predictive features</span>
+      <textarea></textarea>
+    </label>
+    <label class="field">
+      <span class="label">One major analytical insight</span>
+      <textarea></textarea>
+    </label>
+  </section>
+
+  <section id="reflection">
+    <h2>Reflection</h2>
+    <label class="field">
+      <span class="label">Biggest technical challenge encountered</span>
+      <textarea></textarea>
+    </label>
+    <label class="field">
+      <span class="label">How the challenge was solved</span>
+      <textarea></textarea>
+    </label>
+    <label class="field">
+      <span class="label">One improvement for future work</span>
+      <textarea></textarea>
+    </label>
+  </section>
+
+  <section id="contribution">
+    <h2>Team Contribution</h2>
+    <label class="field">
+      <span class="label">Role of each team member</span>
+      <textarea></textarea>
+    </label>
+    <p><strong>Confirmation of collaborative work:</strong></p>
+    <label class="checkbox-row">
+      <input type="checkbox">
+      <span>All team members contributed meaningfully to this project</span>
+    </label>
+  </section>
+</main>
+
+</body>
+</html>
