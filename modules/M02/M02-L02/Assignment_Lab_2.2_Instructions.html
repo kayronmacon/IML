@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assignment Lab 2.2 — Supervised Learning for Cybersecurity Analysis</title>
+<style>
+  :root { --accent:#2563eb; --code-bg:#f6f8fa; --border:#e2e8f0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         max-width: 820px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem;
+         line-height: 1.6; color: #1f2937; }
+  h1 { font-size: 1.9rem; border-bottom: 3px solid var(--accent); padding-bottom: .4rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.2rem; color: #111827; }
+  h3 { font-size: 1.1rem; margin-top: 1.4rem; }
+  code { background: var(--code-bg); padding: .1rem .35rem; border-radius: 4px;
+         font-family: "Cascadia Code", Consolas, "Courier New", monospace; font-size: .92em; }
+  ul, ol { padding-left: 1.4rem; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+  .callout { background: #eff6ff; border-left: 4px solid var(--accent);
+             padding: .8rem 1rem; border-radius: 6px; }
+  .check { list-style: none; padding-left: 0; }
+  .check li::before { content: "\2705  "; }
+</style>
+</head>
+<body>
+
+<h1>Assignment Lab 2.2 — Supervised Learning for Cybersecurity Analysis</h1>
+<p>🟦 <strong>Course 02 — Introduction to Machine Learning for Cybersecurity</strong></p>
+
+<h2>🎯 Assignment Overview</h2>
+<p>In this assignment, you will independently apply supervised machine learning techniques to
+analyze a cybersecurity-related dataset. You will use Python and Scikit-learn to train a machine
+learning model, generate predictions, and evaluate the results.</p>
+<p>This assignment builds on the concepts and workflow introduced in Guided Lab 2.1.</p>
+
+<h2>📁 Dataset</h2>
+<p>Use the provided dataset:</p>
+<p class="callout"><code>cybersecurity_login_dataset.csv</code></p>
+<p>The dataset contains login activity information that can be used to identify suspicious behavior.</p>
+
+<h2>📌 Important Notes</h2>
+<ul>
+  <li>Use the provided starter notebook or create your own notebook structure (<em>Starter Notebook</em>)</li>
+  <li>Remember to update the dataset path to match the location of your downloaded dataset</li>
+  <li>Ensure your notebook runs without errors before submitting</li>
+  <li>Clearly label all sections of your work</li>
+</ul>
+
+<h2>💡 Tips for Success</h2>
+<ul>
+  <li>Review Guided Lab 2.1 before starting</li>
+  <li>Compare your predictions with actual outputs carefully</li>
+  <li>Focus on understanding the workflow, not only the final accuracy score</li>
+  <li>Use comments in your code to explain your steps</li>
+</ul>
+
+<h2>🛠 Assignment Tasks</h2>
+
+<h3>Part 1 — Load and Explore the Dataset</h3>
+<ul>
+  <li>Import the dataset into Python</li>
+  <li>Display the first few rows of the dataset</li>
+  <li>Review dataset information and check for missing values</li>
+</ul>
+
+<h3>Part 2 — Prepare the Data</h3>
+<ul>
+  <li>Define the feature columns (<code>X</code>)</li>
+  <li>Define the target variable (<code>y</code>)</li>
+  <li>Split the data into training and testing datasets</li>
+</ul>
+
+<h3>Part 3 — Train a Supervised Learning Model</h3>
+<p>Choose and train at least <strong>one</strong> of the following models:</p>
+<ul>
+  <li>Logistic Regression</li>
+  <li>Decision Tree</li>
+  <li>Random Forest</li>
+  <li>Support Vector Machine (SVM)</li>
+</ul>
+
+<h3>Part 4 — Generate Predictions and Evaluate the Model</h3>
+<ul>
+  <li>Generate predictions using the testing dataset</li>
+  <li>Calculate model accuracy</li>
+  <li>Display the confusion matrix</li>
+  <li>Review the classification report</li>
+</ul>
+
+<h3>Part 5 — Interpretation</h3>
+<p>Answer the following questions in your notebook:</p>
+<ol>
+  <li>How accurate was the model?</li>
+  <li>What do the confusion matrix results show?</li>
+  <li>Which features may indicate suspicious behavior?</li>
+  <li>How can machine learning support cybersecurity monitoring and threat detection?</li>
+</ol>
+
+<hr>
+
+<h2>📦 Submission Requirements</h2>
+<p>Submit the following through Canvas:</p>
+<ul class="check">
+  <li>Completed Jupyter Notebook (<code>.ipynb</code>)</li>
+  <li>All notebook cells must be executed and display outputs</li>
+  <li>Include written responses for the interpretation questions</li>
+</ul>
+
+</body>
+</html>

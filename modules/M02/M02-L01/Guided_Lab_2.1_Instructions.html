@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guided Lab 2.1 — Introduction to Supervised Learning with Scikit-learn</title>
+<style>
+  :root { --accent:#2563eb; --code-bg:#f6f8fa; --border:#e2e8f0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         max-width: 820px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem;
+         line-height: 1.6; color: #1f2937; }
+  h1 { font-size: 1.9rem; border-bottom: 3px solid var(--accent); padding-bottom: .4rem; }
+  h2 { font-size: 1.4rem; margin-top: 2.2rem; color: #111827; }
+  h3 { font-size: 1.1rem; margin-top: 1.4rem; }
+  code { background: var(--code-bg); padding: .1rem .35rem; border-radius: 4px;
+         font-family: "Cascadia Code", Consolas, "Courier New", monospace; font-size: .92em; }
+  pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+        padding: 1rem 1.1rem; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+  th, td { border: 1px solid var(--border); padding: .5rem .7rem; text-align: left; }
+  th { background: #f1f5f9; }
+  ul { padding-left: 1.4rem; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+  .callout { background: #eff6ff; border-left: 4px solid var(--accent);
+             padding: .8rem 1rem; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<h1>🛠 Guided Lab 2.1 — Introduction to Supervised Learning with Scikit-learn</h1>
+
+<h2>🎯 Lab Goal</h2>
+<p>In this guided lab, students will build and test a basic supervised machine learning model
+using Python and Scikit-learn. Students will explore the workflow of loading data, training a
+model, generating predictions, and evaluating performance.</p>
+
+<h2>🟦 Learning Objectives</h2>
+<p>By completing this lab, students will be able to:</p>
+<ul>
+  <li>Load and explore a dataset in Python</li>
+  <li>Split data into training and testing datasets</li>
+  <li>Train a supervised learning model using Scikit-learn</li>
+  <li>Generate predictions from a trained model</li>
+  <li>Evaluate model performance using accuracy metrics</li>
+</ul>
+
+<h2>🖥 Tools and Technologies</h2>
+<ul>
+  <li>Python</li>
+  <li>Jupyter Notebook / Google Colab</li>
+  <li>Pandas</li>
+  <li>Scikit-learn</li>
+  <li>NumPy</li>
+</ul>
+
+<h2>📁 Dataset Information</h2>
+<p><strong>Dataset Name:</strong> <code>cybersecurity_login_dataset.csv</code></p>
+<p><strong>Features:</strong></p>
+<table>
+  <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>login_attempts</code></td><td>Number of login attempts</td></tr>
+    <tr><td><code>failed_logins</code></td><td>Number of failed login attempts</td></tr>
+    <tr><td><code>unusual_login_hour</code></td><td>Whether login occurred at an unusual hour (0 = No, 1 = Yes)</td></tr>
+    <tr><td><code>new_ip_address</code></td><td>Whether login came from a new IP address (0 = No, 1 = Yes)</td></tr>
+  </tbody>
+</table>
+<p><strong>Target Variable:</strong></p>
+<ul>
+  <li><code>suspicious</code>
+    <ul>
+      <li>0 = Normal Activity</li>
+      <li>1 = Suspicious Activity</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>🛠 Step 1 — Import Libraries</h2>
+<pre><code>import pandas as pd
+import numpy as np
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report</code></pre>
+
+<h2>🛠 Step 2 — Load the Dataset</h2>
+<pre><code># Load dataset
+df = pd.read_csv("cybersecurity_login_dataset.csv")
+
+# Display first 5 rows
+df.head()</code></pre>
+
+<h2>🛠 Step 3 — Explore the Dataset</h2>
+<pre><code># Dataset information
+print(df.info())
+
+# Check for missing values
+print(df.isnull().sum())
+
+# Display dataset shape
+print(df.shape)</code></pre>
+
+<h2>🛠 Step 4 — Define Features and Target</h2>
+<pre><code># Features
+X = df.drop("suspicious", axis=1)
+
+# Target variable
+y = df["suspicious"]
+
+print(X.head())
+print(y.head())</code></pre>
+
+<h2>🛠 Step 5 — Split the Data</h2>
+<pre><code># Split dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+print(X_train.shape)
+print(X_test.shape)</code></pre>
+
+<h2>🛠 Step 6 — Train the Logistic Regression Model</h2>
+<pre><code># Create model
+model = LogisticRegression()
+
+# Train model
+model.fit(X_train, y_train)</code></pre>
+
+<h2>🛠 Step 7 — Generate Predictions</h2>
+<pre><code># Predict on testing data
+y_pred = model.predict(X_test)
+
+# Display first predictions
+print(y_pred[:10])</code></pre>
+
+<h2>🛠 Step 8 — Evaluate the Model</h2>
+<pre><code># Accuracy score
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# Confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:\n", cm)
+
+# Classification report
+print(classification_report(y_test, y_pred))</code></pre>
+
+<h2>🛠 Step 9 — Interpret the Results</h2>
+<h3>Questions to Answer</h3>
+<ol>
+  <li>What was the model accuracy?</li>
+  <li>What do the confusion matrix results tell you?</li>
+  <li>Which features may help identify suspicious behavior?</li>
+  <li>How can machine learning support cybersecurity monitoring?</li>
+</ol>
+
+<h3>📊 Example Output</h3>
+<pre><code>Accuracy: 0.84
+
+Confusion Matrix:
+[[38 12]
+ [ 7 63]]</code></pre>
+
+<h2>💡 Reflection</h2>
+<p>Write a short paragraph explaining:</p>
+<ul>
+  <li>What the model predicted well</li>
+  <li>What challenges or limitations you observed</li>
+  <li>Why supervised learning is useful in cybersecurity</li>
+</ul>
+
+<hr>
+
+<h2>📦 Submission Requirements</h2>
+<p>Submit:</p>
+<ul>
+  <li>Completed Jupyter Notebook (<code>.ipynb</code>)</li>
+  <li>Screenshots of your output (if requested)</li>
+  <li>Short reflection paragraph</li>
+</ul>
+
+<h2>✅ Deliverable</h2>
+<p class="callout">Completed Guided Lab 2.1 Notebook Submission</p>
+
+</body>
+</html>
