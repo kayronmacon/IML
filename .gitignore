@@ -28,5 +28,7 @@ desktop.ini
 # *.parquet
 # data/
 
-# Oversized datasets (exceed GitHub 100MB limit — download locally)
-modules/M03/M03-L02/creditcard.csv
+# Oversized datasets (exceed GitHub 100MB limit) — kept locally only.
+# Everything in /datasets/ is ignored except the tracked README.
+/datasets/*
+!/datasets/README.md
