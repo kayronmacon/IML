@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Learning — Study Guide</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #181b24;
+    --text: #e6e8ee;
+    --muted: #9aa3b2;
+    --accent: #6ea8fe;
+    --accent-2: #8be9c0;
+    --border: #2a2f3a;
+    --code-bg: #11141b;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+  }
+  .layout { display: flex; max-width: 1200px; margin: 0 auto; }
+  nav.toc {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    width: 260px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 28px 18px;
+    border-right: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  nav.toc h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  nav.toc a { display: block; color: var(--text); text-decoration: none; padding: 4px 8px; border-radius: 6px; }
+  nav.toc a:hover { background: var(--card); color: var(--accent); }
+  nav.toc a.sub { padding-left: 22px; color: var(--muted); font-size: 0.85rem; }
+  main { flex: 1; min-width: 0; padding: 40px 48px 120px; }
+  header.hero { margin-bottom: 40px; }
+  header.hero h1 { font-size: 2.2rem; margin: 0 0 8px; }
+  header.hero p { color: var(--muted); margin: 0; }
+  section.note {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 36px;
+  }
+  h2 { font-size: 1.6rem; border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-top: 0; }
+  h3 { font-size: 1.25rem; color: var(--accent); margin-top: 32px; }
+  h4 { font-size: 1.05rem; color: var(--accent-2); margin-top: 24px; }
+  a { color: var(--accent); }
+  blockquote {
+    border-left: 4px solid var(--accent);
+    margin: 16px 0;
+    padding: 8px 18px;
+    background: rgba(110,168,254,0.08);
+    border-radius: 0 8px 8px 0;
+    color: var(--muted);
+  }
+  blockquote em { color: var(--text); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 0.95rem;
+  }
+  th, td { text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+  th { background: rgba(110,168,254,0.12); }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  code { background: var(--code-bg); padding: 2px 6px; border-radius: 5px; font-size: 0.9em; }
+  strong { color: #fff; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+  .tag { display: inline-block; background: rgba(139,233,192,0.14); color: var(--accent-2); padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+  .seealso { font-size: 0.9rem; color: var(--muted); }
+  .seealso a { text-decoration: none; }
+  ol li, ul li { margin: 4px 0; }
+  @media (max-width: 820px) {
+    nav.toc { display: none; }
+    main { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+  <h2>Contents</h2>
+  <a href="#intro">1 · Intro to ML</a>
+  <a class="sub" href="#intro-what">What is ML?</a>
+  <a class="sub" href="#intro-types">Types of ML Systems</a>
+  <a href="#supervised">2 · Supervised (in depth)</a>
+  <a class="sub" href="#sup-meaning">What "Supervised" Means</a>
+  <a class="sub" href="#sup-training">How Training Works</a>
+  <a class="sub" href="#sup-usecases">Regression &amp; Classification</a>
+  <a class="sub" href="#sup-metrics">Measuring a Model</a>
+  <a class="sub" href="#sup-pitfalls">Common Pitfalls</a>
+  <a href="#unsupervised">3 · Unsupervised (in depth)</a>
+  <a class="sub" href="#un-what">What It Is</a>
+  <a class="sub" href="#un-how">How It Works</a>
+  <a class="sub" href="#un-algos">Algorithm Types</a>
+  <a class="sub" href="#un-apps">Applications</a>
+  <a class="sub" href="#un-adv">Advantages &amp; Challenges</a>
+</nav>
+
+<main>
+<header class="hero">
+  <h1>Machine Learning — Study Guide</h1>
+  <p>Intro to ML · Supervised Learning (in depth) · Unsupervised Learning (in depth)</p>
+</header>
+
+<!-- ============ INTRO ============ -->
+<section class="note" id="intro">
+  <h2>1 · Machine Learning — Core Concepts</h2>
+  <blockquote>
+    Foundational notes on what ML is and the main types of ML systems.<br>
+    Source: <a href="https://developers.google.com/machine-learning/intro-to-ml/supervised">Google — Intro to ML: Supervised Learning</a>
+  </blockquote>
+
+  <h3 id="intro-what">What is Machine Learning?</h3>
+  <p>Machine learning is the practice of <strong>training a piece of software, called a model, to make useful predictions or generate content from data</strong>.</p>
+  <ul>
+    <li>Training a model takes enormous amounts of data.</li>
+    <li>A common starting technique is <strong>linear regression</strong>.</li>
+  </ul>
+
+  <h3 id="intro-types">Types of ML Systems</h3>
+  <p>ML systems fall into one or more of the following categories, based on <strong>how they learn</strong> to make predictions or generate content:</p>
+  <ul>
+    <li>Supervised learning</li>
+    <li>Unsupervised learning</li>
+    <li>Reinforcement learning</li>
+    <li>Generative AI</li>
+  </ul>
+
+  <hr>
+  <h3>Supervised Learning</h3>
+  <p>Supervised models can make predictions after seeing <strong>lots of data with the correct answers</strong>, discovering the connections between the elements in the data that produce those answers. These systems are "supervised" in the sense that <strong>a human gives the model data with the known correct results</strong>. The two most common use cases are <strong>regression</strong> and <strong>classification</strong>.</p>
+  <h4>Regression</h4>
+  <p>A regression model predicts a <strong>numeric value</strong>. <em>Example:</em> a weather model that predicts the amount of rain, in inches or millimeters.</p>
+  <h4>Classification</h4>
+  <p>A classification model predicts the <strong>likelihood that something belongs to a category</strong>.</p>
+  <table>
+    <tr><th>Type</th><th>Meaning</th></tr>
+    <tr><td><strong>Binary classification</strong></td><td>2 possible classes</td></tr>
+    <tr><td><strong>Multiclass classification</strong></td><td>multiple possible classes</td></tr>
+  </table>
+
+  <hr>
+  <h3>Unsupervised Learning</h3>
+  <p>An unsupervised model aims to <strong>identify meaningful patterns in a dataset</strong> without being given correct answers. Many such models rely on <strong>clustering</strong> to organize similar data into groups.</p>
+  <p><strong>How it differs from classification:</strong> the categories aren't defined by you. The model creates the clusters on its own, and you then use your own expertise to <strong>interpret and name them</strong>.</p>
+
+  <hr>
+  <h3>Reinforcement Learning</h3>
+  <p>A reinforcement learning model makes predictions by <strong>getting rewards or penalties</strong> based on actions it performs within an environment.</p>
+  <ul>
+    <li>The system generates a <strong>policy</strong> that defines the best strategy for earning the most rewards.</li>
+    <li><em>Common use:</em> training robots.</li>
+  </ul>
+
+  <hr>
+  <h3>Generative AI</h3>
+  <p><strong>How does it work?</strong> At a high level, generative models learn patterns in data with the goal of <strong>producing new but similar data</strong>.</p>
+  <p>Analogies for how generative models learn:</p>
+  <ul>
+    <li><strong>Comedians</strong> who learn to imitate others by observing people's behaviors and speaking styles.</li>
+    <li><strong>Artists</strong> who learn to paint in a particular style by studying many paintings in that style.</li>
+    <li><strong>Cover bands</strong> that learn to sound like a specific group by listening to lots of their music.</li>
+  </ul>
+  <p><strong>How they're trained:</strong></p>
+  <ol>
+    <li>Initially trained with an <strong>unsupervised</strong> approach, where the model learns to mimic the data it's trained on.</li>
+    <li>Sometimes trained further using <strong>supervised or reinforcement learning</strong> on task-specific data — for example, summarizing an article or editing a photo.</li>
+  </ol>
+  <p>Generative AI is evolving quickly, with new use cases constantly being discovered. For example, generative models help businesses refine ecommerce product images by automatically removing distracting backgrounds or improving the quality of low-resolution images.</p>
+</section>
+
+<!-- ============ SUPERVISED ============ -->
+<section class="note" id="supervised">
+  <h2>2 · Supervised Learning — In Depth</h2>
+  <blockquote>
+    A deep dive into supervised learning, expanding on the core notes.<br>
+    Source basis: <a href="https://developers.google.com/machine-learning/intro-to-ml/supervised">Google — Intro to ML: Supervised Learning</a>
+  </blockquote>
+
+  <h3 id="sup-meaning">What "Supervised" Really Means</h3>
+  <p>A supervised model learns by seeing <strong>lots of examples that already include the correct answer</strong>. From these examples it discovers the connections (patterns) between the input data and the answers, so it can predict the answer for <strong>new data it has never seen</strong>.</p>
+  <p>It is called "supervised" because a human acts as the supervisor: you provide the data <strong>labeled</strong> with the known correct results, and the model is effectively graded against those labels while it learns.</p>
+  <h4>Key vocabulary</h4>
+  <table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td><strong>Feature</strong></td><td>An input variable the model uses to make a prediction (e.g., temperature, humidity).</td></tr>
+    <tr><td><strong>Label</strong></td><td>The correct answer the model is trying to predict (e.g., inches of rain).</td></tr>
+    <tr><td><strong>Example</strong></td><td>A single row of data — one set of features, often paired with its label.</td></tr>
+    <tr><td><strong>Labeled example</strong></td><td>An example that includes the label. Used for <strong>training</strong>.</td></tr>
+    <tr><td><strong>Unlabeled example</strong></td><td>An example with features but no label. The model predicts the label for these.</td></tr>
+    <tr><td><strong>Model</strong></td><td>The function the training process produces, mapping features → prediction.</td></tr>
+  </table>
+
+  <h3 id="sup-training">How Training Works (the loop)</h3>
+  <p>Supervised learning is fundamentally a feedback loop:</p>
+  <ol>
+    <li><strong>Predict</strong> — the model makes a prediction from the input features.</li>
+    <li><strong>Compare</strong> — the prediction is compared to the true label using a <strong>loss</strong> function (a measure of how wrong it was).</li>
+    <li><strong>Adjust</strong> — the model updates its internal parameters (weights) to reduce that loss.</li>
+    <li><strong>Repeat</strong> — over many examples and many passes, the loss shrinks and predictions improve.</li>
+  </ol>
+  <blockquote>The goal is <strong>generalization</strong>: doing well on <em>new</em> data, not just memorizing the training data.</blockquote>
+  <h4>Train / test split</h4>
+  <ul>
+    <li><strong>Training set</strong> — used to fit the model.</li>
+    <li><strong>Test set</strong> — held back and used only to evaluate performance on unseen data.</li>
+    <li>(Often a <strong>validation set</strong> too, for tuning settings before the final test.)</li>
+  </ul>
+
+  <h3 id="sup-usecases">The Two Main Use Cases</h3>
+  <h4>Regression — predicting a number</h4>
+  <p>A <strong>regression</strong> model predicts a <strong>continuous numeric value</strong>.</p>
+  <ul>
+    <li><em>Example:</em> a weather model predicting the amount of rain in inches or millimeters.</li>
+    <li><em>Other examples:</em> predicting a house price, a person's age from a photo, or tomorrow's stock value.</li>
+  </ul>
+  <p>The simplest and most common starting technique is <strong>linear regression</strong>, which fits a straight-line relationship between the features and the numeric target.</p>
+  <h4>Classification — predicting a category</h4>
+  <p>A <strong>classification</strong> model predicts the <strong>likelihood that something belongs to a category</strong>.</p>
+  <table>
+    <tr><th>Type</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><strong>Binary classification</strong></td><td>Exactly <strong>2</strong> possible classes</td><td>spam vs. not spam</td></tr>
+    <tr><td><strong>Multiclass classification</strong></td><td><strong>More than 2</strong> possible classes</td><td><em>primary</em>, <em>social</em>, or <em>promotions</em></td></tr>
+  </table>
+  <blockquote>Under the hood, a classifier usually outputs a <strong>probability</strong> (e.g., 0.92 = "spam"). A <strong>threshold</strong> (often 0.5) turns that probability into a final class decision.</blockquote>
+  <h4>Regression vs. Classification at a glance</h4>
+  <table>
+    <tr><th></th><th>Regression</th><th>Classification</th></tr>
+    <tr><td>Predicts</td><td>A numeric value</td><td>A category / class</td></tr>
+    <tr><td>Output</td><td>Continuous (e.g., 3.7 in)</td><td>Discrete (e.g., "cat")</td></tr>
+    <tr><td>Example</td><td>How much rain?</td><td>Will it rain — yes or no?</td></tr>
+  </table>
+
+  <h3 id="sup-metrics">Measuring How Good a Model Is</h3>
+  <p><strong>Regression metrics</strong> (how far off the numbers are):</p>
+  <ul>
+    <li><strong>MAE</strong> (Mean Absolute Error) — average size of the errors.</li>
+    <li><strong>MSE / RMSE</strong> (Mean Squared / Root Mean Squared Error) — punishes large errors more heavily.</li>
+  </ul>
+  <p><strong>Classification metrics</strong> (how often the category is right):</p>
+  <ul>
+    <li><strong>Accuracy</strong> — fraction of predictions that are correct.</li>
+    <li><strong>Precision</strong> — of the items predicted positive, how many truly were.</li>
+    <li><strong>Recall</strong> — of the truly positive items, how many were caught.</li>
+    <li><strong>F1 score</strong> — balances precision and recall.</li>
+  </ul>
+
+  <h3 id="sup-pitfalls">Common Pitfalls</h3>
+  <ul>
+    <li><strong>Overfitting</strong> — the model memorizes the training data (including its noise) and fails on new data. Signs: great training score, poor test score.</li>
+    <li><strong>Underfitting</strong> — the model is too simple to capture the real pattern; it does poorly on <em>both</em> training and test data.</li>
+    <li><strong>Bad / biased labels</strong> — supervised learning is only as good as its labeled answers.</li>
+    <li><strong>Data leakage</strong> — accidentally letting answer-related information into the features, giving falsely high scores.</li>
+  </ul>
+</section>
+
+<!-- ============ UNSUPERVISED ============ -->
+<section class="note" id="unsupervised">
+  <h2>3 · Unsupervised Learning — In Depth</h2>
+  <blockquote>
+    A deep dive into unsupervised learning, expanding on the core notes.<br>
+    Source: <a href="https://www.geeksforgeeks.org/machine-learning/unsupervised-learning/">GeeksforGeeks — Unsupervised Learning</a>
+  </blockquote>
+
+  <h3 id="un-what">What Unsupervised Learning Is</h3>
+  <p>Unsupervised learning is a type of machine learning where the model works <strong>without labeled data</strong>. It learns patterns on its own — grouping similar data points or finding hidden structures — <strong>without human intervention</strong>. The model is never told the "correct answer." Instead, it discovers the structure that's already present in the data.</p>
+  <ul>
+    <li>Used for tasks like <strong>clustering</strong>, <strong>dimensionality reduction</strong>, and <strong>association rule learning</strong>.</li>
+    <li>Helps <strong>identify hidden patterns</strong> in data.</li>
+    <li>Useful for <strong>grouping, compression, and anomaly detection</strong>.</li>
+  </ul>
+  <h4>How it contrasts with supervised learning</h4>
+  <table>
+    <tr><th></th><th>Supervised</th><th>Unsupervised</th></tr>
+    <tr><td>Training data</td><td><strong>Labeled</strong> (features + answers)</td><td><strong>Unlabeled</strong> (features only)</td></tr>
+    <tr><td>Goal</td><td>Predict a known target</td><td>Discover hidden structure</td></tr>
+    <tr><td>Human role</td><td>Provides correct answers</td><td>Interprets/names the results afterward</td></tr>
+    <tr><td>Example tasks</td><td>Regression, classification</td><td>Clustering, dimensionality reduction</td></tr>
+  </table>
+
+  <h3 id="un-how">How Unsupervised Learning Works</h3>
+  <ol>
+    <li><strong>Collect unlabeled data</strong> — gather a dataset without predefined labels or categories.</li>
+    <li><strong>Select an algorithm</strong> — choose one suited to the goal: clustering → <strong>K-Means</strong>; association rule learning → <strong>Apriori</strong>; dimensionality reduction → <strong>PCA</strong>.</li>
+    <li><strong>Train the model on raw data</strong> — feed the dataset in; the algorithm searches for similarities, relationships, or hidden structures.</li>
+    <li><strong>Group or transform the data</strong> — the algorithm organizes data into <strong>clusters</strong>, <strong>rules</strong>, or <strong>lower-dimensional forms</strong>, all without human input.</li>
+    <li><strong>Interpret and use the results</strong> — analyze the discovered groups, rules, or features for insight, or use them for visualization, anomaly detection, or as input to other models.</li>
+  </ol>
+
+  <h3 id="un-algos">Types of Unsupervised Algorithms</h3>
+  <p>There are mainly <strong>three</strong> types of unsupervised algorithms.</p>
+
+  <h4>1. Clustering</h4>
+  <p>Clustering groups unlabeled data into <strong>clusters based on similarity</strong>. The goal is to discover patterns or relationships in the data <strong>without any prior categories or labels</strong>.</p>
+  <ul>
+    <li>Groups data points that share similar features or characteristics.</li>
+    <li>Finds <strong>natural groupings</strong> in raw, unclassified data.</li>
+    <li>Common uses: <strong>customer segmentation, anomaly detection, data organization</strong>.</li>
+    <li>Works purely from the input data — no output labels.</li>
+  </ul>
+  <table>
+    <tr><th>Algorithm</th><th>How it works</th><th>Reference</th></tr>
+    <tr><td><strong>K-Means</strong></td><td>Groups data into <strong>K</strong> clusters based on how close points are to each other.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/k-means-clustering-introduction/">link</a></td></tr>
+    <tr><td><strong>Hierarchical</strong></td><td>Builds a tree step-by-step, either <strong>merging or splitting</strong> groups.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/hierarchical-clustering/">link</a></td></tr>
+    <tr><td><strong>Density-Based (DBSCAN)</strong></td><td>Finds clusters in <strong>dense areas</strong>; treats scattered points as <strong>noise</strong>.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/dbscan-clustering-in-ml-density-based-clustering/">link</a></td></tr>
+    <tr><td><strong>Mean-Shift</strong></td><td>Discovers clusters by moving points toward the <strong>most crowded areas</strong>.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/ml-mean-shift-clustering/">link</a></td></tr>
+    <tr><td><strong>Spectral</strong></td><td>Groups data by analyzing <strong>connections between points using graphs</strong>.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/spectral-clustering/">link</a></td></tr>
+  </table>
+
+  <h4>2. Association Rule Learning</h4>
+  <p><a href="https://www.geeksforgeeks.org/machine-learning/association-rule/">Association rule learning</a> is a <strong>rule-based</strong> unsupervised technique used to discover interesting relationships between variables in large datasets. It identifies patterns as <strong>"if-then" rules</strong>, showing how the presence of some items implies the presence of others.</p>
+  <ul>
+    <li>Finds <strong>frequent item combinations</strong> and the rules connecting them.</li>
+    <li>Common use: <strong>market basket analysis</strong> — understanding product purchase relationships.</li>
+    <li>Helps retailers design <strong>promotions and cross-selling</strong> strategies.</li>
+  </ul>
+  <table>
+    <tr><th>Algorithm</th><th>How it works</th><th>Reference</th></tr>
+    <tr><td><strong>Apriori</strong></td><td>Finds patterns by exploring frequent item combinations <strong>step-by-step</strong>.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/apriori-algorithm/">link</a></td></tr>
+    <tr><td><strong>FP-Growth</strong></td><td>An efficient alternative to Apriori — finds frequent patterns <strong>without generating candidate sets</strong>.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/frequent-pattern-growth-algorithm/">link</a></td></tr>
+    <tr><td><strong>Eclat</strong></td><td>Uses <strong>intersections of itemsets</strong> to efficiently find frequent patterns.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/ml-eclat-algorithm/">link</a></td></tr>
+    <tr><td><strong>Tree-based</strong></td><td>Scales to large datasets by organizing data in <strong>tree structures</strong>.</td><td><a href="https://www.geeksforgeeks.org/dsa/introduction-to-tree-data-structure/">link</a></td></tr>
+  </table>
+
+  <h4>3. Dimensionality Reduction</h4>
+  <p><a href="https://www.geeksforgeeks.org/machine-learning/dimensionality-reduction/">Dimensionality reduction</a> is the process of <strong>decreasing the number of features</strong> in a dataset while retaining as much of the original information as possible. It simplifies complex data — making it easier to analyze and visualize — and improves the efficiency and performance of ML algorithms by <strong>reducing noise and computational cost</strong>.</p>
+  <ul>
+    <li>Reduces the feature space from <strong>many dimensions to fewer, more meaningful</strong> ones.</li>
+    <li>Helps focus on the <strong>most important traits or patterns</strong> in the data.</li>
+    <li>Common use: improving <strong>model speed</strong> and reducing <strong>overfitting</strong>.</li>
+  </ul>
+  <table>
+    <tr><th>Algorithm</th><th>How it works</th><th>Reference</th></tr>
+    <tr><td><strong>PCA</strong> (Principal Component Analysis)</td><td>Transforms data into <strong>uncorrelated principal components</strong>.</td><td><a href="https://www.geeksforgeeks.org/data-analysis/principal-component-analysis-pca/">link</a></td></tr>
+    <tr><td><strong>NMF</strong> (Non-negative Matrix Factorization)</td><td>Breaks data into <strong>non-negative parts</strong> to simplify representation.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/non-negative-matrix-factorization/">link</a></td></tr>
+    <tr><td><strong>LLE</strong> (Locally Linear Embedding)</td><td>Reduces dimensions while <strong>preserving relationships between nearby points</strong>.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/locally-linear-embedding-in-machine-learning/">link</a></td></tr>
+    <tr><td><strong>Isomap</strong></td><td>Captures <strong>global structure</strong> by preserving distances along a manifold.</td><td><a href="https://www.geeksforgeeks.org/machine-learning/isomap-a-non-linear-dimensionality-reduction-technique/">link</a></td></tr>
+  </table>
+
+  <h3 id="un-apps">Applications</h3>
+  <ul>
+    <li><strong>Customer segmentation</strong> — cluster customers by purchasing behavior or demographics for targeted marketing.</li>
+    <li><strong>Anomaly detection</strong> — identify unusual patterns, aiding fraud detection, cybersecurity, and equipment-failure prevention.</li>
+    <li><strong>Recommendation systems</strong> — suggest products, movies, or music by analyzing user behavior or preferences.</li>
+    <li><strong>Image and text clustering</strong> — group similar images or documents for organization and content recommendation.</li>
+    <li><strong>Social network analysis</strong> — detect communities or trends in user interactions on social platforms.</li>
+  </ul>
+
+  <h3 id="un-adv">Advantages &amp; Challenges</h3>
+  <h4>Advantages</h4>
+  <ul>
+    <li>Works with <strong>raw, unlabeled data</strong>, saving the time and effort of data annotation.</li>
+    <li>Finds <strong>hidden patterns and natural groupings</strong> that humans may not easily spot.</li>
+    <li>Handles <strong>large, complex, high-dimensional</strong> datasets efficiently.</li>
+    <li>Detects <strong>anomalies</strong> without needing prior examples.</li>
+  </ul>
+  <h4>Challenges</h4>
+  <ul>
+    <li><strong>Noisy data and outliers</strong> can distort patterns and reduce effectiveness.</li>
+    <li>Models may <strong>capture noise instead of meaningful patterns</strong>, leading to overfitting.</li>
+    <li><strong>Lack of labels</strong> makes it hard to guide the algorithm toward specific outcomes.</li>
+    <li>Results (e.g., clusters) may be <strong>difficult to interpret</strong> or may not clearly match real-world categories.</li>
+  </ul>
+</section>
+
+</main>
+</div>
+</body>
+</html>

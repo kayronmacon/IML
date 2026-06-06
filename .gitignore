@@ -27,3 +27,6 @@ desktop.ini
 # *.csv
 # *.parquet
 # data/
+
+# Oversized datasets (exceed GitHub 100MB limit — download locally)
+modules/M03/M03-L02/creditcard.csv
