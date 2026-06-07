@@ -32,3 +32,6 @@ desktop.ini
 # Everything in /datasets/ is ignored except the tracked README.
 /datasets/*
 !/datasets/README.md
+
+# Personal study summaries — local only for now.
+/summary/
