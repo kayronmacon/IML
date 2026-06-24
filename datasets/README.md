@@ -14,7 +14,7 @@ df = pd.read_csv("../../../datasets/creditcard.csv")
 
 | File | Used by | Source |
 | --- | --- | --- |
-| `creditcard.csv` (~144 MB) | M03-L02 — Lab 3.2 Fraud & Anomaly Detection | [Kaggle: Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) |
+| `creditcard.csv` (~144 MB) | M03-L02 — Lab 3.2 Fraud & Anomaly Detection; M06-L01 — Guided Lab 6.1; M06-L02 — Assignment Lab 6.2 | [Kaggle: Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) |
 
 > Small datasets (e.g. `cybersecurity_login_dataset.csv`) stay alongside their
 > labs and are committed normally — only large files belong here.

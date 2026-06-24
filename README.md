@@ -4,10 +4,12 @@ Public learning repo for my Introduction to Machine Learning coursework. Notes, 
 
 ## Structure
 
-- `modules/` — Jupyter notebooks for each module (start with `hello_world.ipynb`)
+- `modules/` — lab notebooks organized by module (`M0X/M0X-L01`, `M0X-L02`), each with its instructions
 - `readings/` — lecture materials and curated resource pages (HTML + PDF)
 - `notes/` — personal notes
-- `recp/` — recipes / reusable snippets
+- `summary/` — per-lab study summaries (local only)
+- `datasets/` — oversized datasets, gitignored and kept locally (see `datasets/README.md`)
+- `learning/` — scratch notebooks (start with `learning/hello_world.ipynb`)
 
 ## Resource pages
 
